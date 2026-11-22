@@ -1,0 +1,199 @@
+/* ==========================================================================
+   Hero, illustrated experiment (index-hero-illustrated.html)
+   Centred title, framed by line illustrations at the edges and along the bottom.
+   Layering per illustration:  .hx-piece (pointer + scroll parallax)
+                               > .hx-float (slow idle float)
+                               > .hx-svg  (blur-in entrance, lines draw in)
+   Load after sections.css and motion.css. Removing this file + the markup restores nothing else.
+   ========================================================================== */
+
+.hero--illustrated {
+  --meadow-h: clamp(170px, 22vw, 320px);
+  min-height: min(100svh, 980px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: calc(var(--header-h) + clamp(4rem, 10vh, 7rem));
+  padding-bottom: calc(var(--meadow-h) * 0.62);
+  background:
+    radial-gradient(60% 50% at 50% 42%, var(--lavender-50), rgba(251, 247, 250, 0) 70%),
+    var(--white);
+}
+.hero--illustrated::after { display: none; }
+
+/* ---------- Centred copy (same text and buttons as index.html) ---------- */
+.hx-center { position: relative; z-index: 2; text-align: center; }
+.hero--illustrated .hero__name { font-size: clamp(3rem, 1.6rem + 6vw, 6.4rem); }
+.hero--illustrated .hero__field { margin-top: 0.2em; }
+.hero--illustrated .hero__motto { justify-content: center; }
+.hero--illustrated .hero__actions { justify-content: center; }
+
+/* ---------- Frame layer ---------- */
+.hx-frame {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--hero-fade, 1);          /* set by ui.js: the frame fades out as the hero scrolls away */
+}
+.hx-piece {
+  position: absolute;
+  transform: translate3d(
+    calc(var(--mx, 0) * var(--depth, 1) * 16px),
+    calc(var(--my, 0) * var(--depth, 1) * 12px - var(--hx-scroll, 0) * var(--depth, 1) * 0.12px),
+    0);
+  transition: transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+.hx-svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+.hx-pelvis { top: calc(var(--header-h) + 8px); right: -2.5vw; width: clamp(250px, 29vw, 450px); }
+.hx-mesh   { top: calc(var(--header-h) - 6px); left: -3vw;   width: clamp(240px, 27vw, 430px); }
+.hx-preg   { left: 15vw; bottom: calc(var(--meadow-h) * 0.11); width: clamp(84px, 8.4vw, 136px); }
+.hx-meadow { left: 0; right: 0; bottom: 0; height: var(--meadow-h); }
+.hx-meadow .hx-svg { height: 100%; }
+
+/* ---------- Line language: thin even hairlines, round caps, soft colour washes behind ---------- */
+.hx-line, .hx-tuft, .hx-grass, .hx-ripple, .hx-seed path {
+  fill: none;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+.hx-line         { stroke: var(--plum-600); }
+.hx-line--accent { stroke: var(--orchid-500); }
+.hx-line--sage   { stroke: var(--green-600); stroke-opacity: 0.55; }
+.hx-mesh .hx-line--sage { stroke-width: 1; }
+.hx-blob         { fill: var(--lavender-100); fill-opacity: 0.85; }
+.hx-blob--sage   { fill: var(--green-100); fill-opacity: 0.7; }
+.hx-node         { fill: var(--orchid-400); }
+.hx-tuft, .hx-seed path { stroke: #c3bec7; }
+.hx-dot          { fill: #c3bec7; }
+.hx-stem         { stroke: #c3bec7; }
+.hx-grass        { stroke: var(--green-600); stroke-opacity: 0.4; }
+.hx-drop__body   { fill: var(--lavender-200); stroke: var(--orchid-400); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+.hx-ripple       { stroke: var(--orchid-400); }
+
+/* ---------- Seeds drifting across the whole hero ---------- */
+.hx-seeds { position: absolute; inset: 0; overflow: hidden; }
+.hx-seed {
+  position: absolute;
+  left: var(--sx); top: var(--sy);
+  width: calc(14px * var(--ss)); opacity: 0;
+}
+.hx-seed svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+/* ==========================================================================
+   Motion (approximating the Phylo hero: soft blur-in, lines drawing, slow float, depth parallax)
+   ========================================================================== */
+.js .hero--illustrated [data-hero-item] {
+  filter: blur(10px);
+  transform: translateY(26px);
+  animation-name: hx-in;
+  animation-duration: 1.4s;
+}
+.js .hero--illustrated .hero__name    { animation-delay: 150ms; }
+.js .hero--illustrated .hero__field   { animation-delay: 380ms; }
+.js .hero--illustrated .hero__motto   { animation-delay: 600ms; }
+.js .hero--illustrated .hero__actions { animation-delay: 900ms; }
+
+/* illustrations: blur in, then their lines draw */
+.js .hx-svg { opacity: 0; animation: hx-piece-in 1.8s var(--ease-out) var(--in, 0.4s) forwards; }
+.js .hx-meadow .hx-svg { --in: 0.2s; }
+.js .hx-pelvis .hx-svg { --in: 0.5s; }
+.js .hx-mesh   .hx-svg { --in: 0.75s; }
+.js .hx-preg   .hx-svg { --in: 1s; }
+.js .hx-line {
+  stroke-dasharray: 1; stroke-dashoffset: 1;
+  animation: draw 2.6s var(--ease-in-out) calc(var(--in, 0.4s) + 0.2s + var(--i, 0) * 0.14s) forwards;
+}
+.js .hx-pelvis .hx-line { --in: 0.5s; }
+.js .hx-mesh   .hx-line { --in: 0.75s; animation-duration: 3.6s; }
+.js .hx-preg   .hx-line { --in: 1s; }
+.js .hx-meadow .hx-line { --in: 0.2s; }
+
+.js .hx-node { transform-box: fill-box; transform-origin: center; transform: scale(0);
+  animation: hx-pop 0.8s var(--ease-out) calc(1.8s + var(--n) * 0.12s) forwards,
+             hx-pulse 3.2s var(--ease-in-out) calc(2.8s + var(--n) * 0.4s) infinite alternate; }
+
+/* idle: each piece floats on its own slow cycle */
+.hx-float { animation: hx-float 11s var(--ease-in-out) infinite alternate; }
+.hx-pelvis .hx-float { animation-duration: 12s; }
+.hx-mesh   .hx-float { animation-duration: 9s; animation-delay: -3s; }
+.hx-preg   .hx-float { animation-duration: 10s; animation-delay: -6s; }
+.hx-pelvis .hx-svg   { transform-origin: 60% 50%; }
+
+/* dandelions sway from the ground; tufts open after the stem has drawn */
+.hx-dand__sway { transform-box: view-box; transform-origin: var(--ox) var(--oy); animation: hx-sway 6s var(--ease-in-out) infinite alternate; }
+.hx-dand--mid   .hx-dand__sway { animation-duration: 4.6s; animation-delay: -2s; }
+.hx-dand--small .hx-dand__sway { animation-duration: 3.8s; animation-delay: -1s; }
+.hx-dand__head { transform-box: fill-box; transform-origin: center; }
+.js .hx-dand__head { opacity: 0; animation: head-open 1.6s var(--ease-out) 2.2s forwards; }
+
+/* the drop falls, lands, and rings out */
+.hx-drop__body { animation: hx-drop 6s var(--ease-in-out) 2.4s infinite; opacity: 0; }
+.hx-ripple { transform-box: fill-box; transform-origin: center; opacity: 0;
+  animation: hx-ripple 6s var(--ease-out) calc(2.4s + var(--k) * 0.35s) infinite; }
+
+.hx-seed { animation: hx-seed var(--sd) linear var(--sdl) infinite; }
+.hx-seed svg { animation: seed-wobble 1.8s var(--ease-in-out) infinite alternate; transform-origin: 50% 40%; }
+
+@keyframes hx-in { to { opacity: 1; filter: blur(0); transform: none; } }
+@keyframes hx-piece-in { from { opacity: 0; filter: blur(14px); transform: scale(0.95); } to { opacity: 1; filter: blur(0); transform: none; } }
+@keyframes hx-pop { to { transform: scale(1); } }
+@keyframes hx-pulse { from { opacity: 1; } to { opacity: 0.35; } }
+@keyframes hx-float { from { transform: translateY(-8px) rotate(-0.8deg); } to { transform: translateY(8px) rotate(0.8deg); } }
+@keyframes hx-sway { from { transform: rotate(-2deg); } to { transform: rotate(2deg); } }
+@keyframes hx-drop {
+  0%   { opacity: 0; transform: translateY(-40px); }
+  12%  { opacity: 1; }
+  30%  { opacity: 1; transform: translateY(0); }
+  36%, 100% { opacity: 0; transform: translateY(10px); }
+}
+@keyframes hx-ripple {
+  0%, 30% { opacity: 0; transform: scale(0.3); }
+  34% { opacity: 0.9; }
+  70%, 100% { opacity: 0; transform: scale(1); }
+}
+@keyframes hx-seed {
+  0%   { opacity: 0; transform: translate(0, 0) rotate(0deg); }
+  10%  { opacity: 0.9; }
+  85%  { opacity: 0.6; }
+  100% { opacity: 0; transform: translate(-34vw, -26vh) rotate(-50deg); }
+}
+
+/* ---------- Phones ---------- */
+@media (max-width: 759px) {
+  .hero--illustrated {
+    --meadow-h: 150px;
+    min-height: 100svh;
+    padding-top: calc(var(--header-h) + 150px);
+    padding-bottom: calc(var(--meadow-h) + 36px);
+  }
+  .hx-pelvis { top: calc(var(--header-h) - 8px); right: -16vw; width: 62vw; }
+  .hx-mesh   { top: calc(var(--header-h) + 10px); left: -18vw; width: 56vw; }
+  .hx-preg   { left: 5vw; bottom: 22px; width: 62px; }
+  .hero--illustrated .hero__actions { justify-content: center; }
+}
+
+/* ---------- Tablets held upright: bigger pieces so the taller frame stays full ---------- */
+@media (min-width: 760px) and (max-aspect-ratio: 1/1) {
+  .hx-pelvis { width: 37vw; right: -7vw; }
+  .hx-mesh   { width: 38vw; left: -6vw; }
+  .hx-preg   { width: 104px; left: 12vw; }
+}
+
+/* ---------- Reduced motion: everything is drawn and still ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .hero--illustrated *, .hero--illustrated [data-hero-item] {
+    animation: none !important; transition: none !important;
+  }
+  .js .hero--illustrated [data-hero-item], .js .hx-svg, .js .hx-dand__head { opacity: 1; filter: none; transform: none; }
+  .js .hx-line { stroke-dashoffset: 0; }
+  .js .hx-node { transform: none; }
+  .hx-drop__body { opacity: 1; }
+  .hx-ripple { opacity: 0.6; }
+  .hx-seeds { display: none; }
+  .hx-piece { transform: none; }
+}

@@ -1,0 +1,152 @@
+  <!-- ===================================================================
+       1. PAGE HERO — the homepage hero, reinterpreted for an inner page:
+       same glows, same blur-in entrance. No buttons under the title (round 2):
+       with no .hero__actions on the page, ui.js shows the floating WhatsApp
+       button and the phone action bar from the first frame.
+       The live page opens with a dandelion photo (Dandelions.jpg, empty alt);
+       here it becomes the homepage's big line dandelion, growing in on load (round 4:
+       one dandelion, its head level with the title, its long stem fading out down the page).
+       =================================================================== -->
+  <section class="hero t-hero" aria-labelledby="page-title" data-hero-parallax>
+    <div class="hero__bg" aria-hidden="true">
+      <span class="hero__glow hero__glow--a"></span>
+      <span class="hero__glow hero__glow--b"></span>
+    </div>
+
+    <div class="t-hero__deco" aria-hidden="true">
+{{DANDELION_BIG_LONG}}
+    </div>
+
+    <div class="container t-hero__text">
+      <nav class="t-crumbs" aria-label="פירורי לחם" data-hero-item>
+        <ol role="list">
+          <li><a href="https://www.physiotherapy.co.il/">דף הבית</a></li>
+          <li><a href="https://www.physiotherapy.co.il/treatments/">טיפולים</a></li>
+          <li><span aria-current="page">צניחת איברי אגן</span></li>
+        </ol>
+      </nav>
+      <h1 class="t-hero__title" id="page-title" data-hero-item>צניחת איברי אגן</h1>
+    </div>
+  </section>
+
+  <!-- ===================================================================
+       2. ARTICLE — the homepage "טיפולים נוספים" composition (4 : 7 columns,
+       sticky side column) carries the page: the side column is an in-page
+       index of the six questions (scroll-spy), the main column holds the text.
+       All headings, paragraphs and list items are the live page's, verbatim.
+       =================================================================== -->
+  <div class="t-article section">
+    <div class="container t-article__grid">
+
+      <aside class="t-toc" aria-labelledby="toc-title">
+        <div class="t-toc__inner">
+          <p class="t-toc__label" id="toc-title">בעמוד זה</p>
+          <ol class="t-toc__list" role="list" data-toc>
+            <li><a href="#what"><span class="t-num" aria-hidden="true">01</span><span>מהי צניחת איברי רצפת האגן?</span></a></li>
+            <li><a href="#organs"><span class="t-num" aria-hidden="true">02</span><span>אילו איברים ברצפת האגן עלולים לצנוח?</span></a></li>
+            <li><a href="#symptoms"><span class="t-num" aria-hidden="true">03</span><span>אילו תחושות מרגישים כשיש צניחה של איברי האגן?</span></a></li>
+            <li><a href="#causes"><span class="t-num" aria-hidden="true">04</span><span>מדוע מתרחשת צניחת איברי האגן?</span></a></li>
+            <li><a href="#diagnosis"><span class="t-num" aria-hidden="true">05</span><span>מי מאבחן צניחה של איברי האגן?</span></a></li>
+            <li><a href="#treatment"><span class="t-num" aria-hidden="true">06</span><span>מה כולל הטיפול הפיזיותרפי (השמרני) בצניחת איברי האגן?</span></a></li>
+          </ol>
+          <a class="t-toc__call" href="tel:052-6623666">
+            <span class="arrow-link__icon"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg></span>
+            <span dir="ltr">052-6623666</span>
+          </a>
+        </div>
+      </aside>
+
+      <div class="t-article__body">
+
+        <!-- 01 — definition, set large like the homepage's opening paragraph -->
+        <section class="t-block t-block--lead" id="what" aria-labelledby="what-title">
+          <h2 class="t-h2" id="what-title" data-reveal><span class="t-num" aria-hidden="true">01</span>מהי צניחת איברי רצפת האגן?</h2>
+          <div class="t-lead" data-reveal>
+            {{P_WHAT}}
+          </div>
+        </section>
+
+        <!-- 02 — organs (the draft anatomy figure was removed in round 2: not approved by Sivan) -->
+        <section class="t-block" id="organs" aria-labelledby="organs-title">
+          <h2 class="t-h2" id="organs-title" data-reveal><span class="t-num" aria-hidden="true">02</span>אילו איברים ברצפת האגן עלולים לצנוח?</h2>
+          <div class="t-prose" data-reveal>
+            {{P_ORGANS}}
+          </div>
+
+        </section>
+
+        <!-- 03 — sensations: a soft lavender capsule panel with the orchid rule from the homepage pull quote -->
+        <section class="t-block" id="symptoms" aria-labelledby="symptoms-title">
+          <h2 class="t-h2" id="symptoms-title" data-reveal><span class="t-num" aria-hidden="true">03</span>אילו תחושות מרגישים כשיש צניחה של איברי האגן?</h2>
+          <div class="t-panel" data-reveal>
+            {{P_SYMPTOMS}}
+          </div>
+        </section>
+
+        <!-- 04 — causes: the six list items as numbered capsule cards (green hover, as the homepage tiles) -->
+        <section class="t-block" id="causes" aria-labelledby="causes-title">
+          <h2 class="t-h2" id="causes-title" data-reveal><span class="t-num" aria-hidden="true">04</span>מדוע מתרחשת צניחת איברי האגן?</h2>
+          <div class="t-prose" data-reveal>
+            {{P_CAUSES_INTRO}}
+          </div>
+          <ul class="t-factors" role="list">
+{{LI_CAUSES}}
+          </ul>
+        </section>
+
+        <!-- 05 — diagnosis: two paragraphs on a thin vertical path with capsule markers -->
+        <section class="t-block" id="diagnosis" aria-labelledby="diagnosis-title">
+          <h2 class="t-h2" id="diagnosis-title" data-reveal><span class="t-num" aria-hidden="true">05</span>מי מאבחן צניחה של איברי האגן?</h2>
+          <ol class="t-steps" role="list">
+{{LI_DIAGNOSIS}}
+          </ol>
+        </section>
+
+        <!-- 06 — treatment: Sivan comes out of the capsule again (the homepage hero motif), beside the text -->
+        <section class="t-block t-block--care" id="treatment" aria-labelledby="treatment-title">
+          <h2 class="t-h2" id="treatment-title" data-reveal><span class="t-num" aria-hidden="true">06</span>מה כולל הטיפול הפיזיותרפי (השמרני) בצניחת איברי האגן?</h2>
+          <div class="t-care">
+            <figure class="t-portrait" data-reveal>
+              <span class="t-portrait__cap"><img class="t-portrait__img" src="../assets/images/sivan-navot-portrait-cutout-full.webp" alt="סיון נבות (Sivan Navot), פיזיותרפיסטית מומחית בשיקום רצפת האגן" width="691" height="890" loading="lazy"></span>
+              <img class="t-portrait__img t-portrait__img--top" src="../assets/images/sivan-navot-portrait-cutout-full.webp" alt="" aria-hidden="true" width="691" height="890" loading="lazy">
+            </figure>
+            <div class="t-care__text" data-reveal>
+              {{P_TREATMENT}}
+              <a class="btn btn--primary btn--lg t-care__cta" href="#contact">
+                צור קשר
+                <svg class="icon icon--move" aria-hidden="true"><use href="#i-arrow"/></svg>
+              </a>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       3. RELATED — the live page's "טיפולים" list (six links, same order,
+       including the link to this page). Same composition as the homepage
+       "טיפולים נוספים": sticky title, the dandelion entering from the edge,
+       hairline rows.
+       =================================================================== -->
+  <section class="treatments t-related section" aria-labelledby="related-title">
+    <div class="container treatments__grid">
+      <header class="treatments__head">
+        <h2 class="section-title" id="related-title" data-reveal>טיפולים</h2>
+        <div class="treatments__dandelion" aria-hidden="true" data-reveal>
+{{DANDELION_SIDE}}
+        </div>
+      </header>
+      <ul class="acc t-links" role="list">
+        <li class="acc__item" data-reveal><a class="t-links__link" href="https://www.physiotherapy.co.il/treatments/men/"><span class="acc__title">גברים</span><span class="t-links__go"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li class="acc__item" data-reveal><a class="t-links__link" href="https://www.physiotherapy.co.il/treatments/urinary-incontinence/"><span class="acc__title">בריחת שתן\שלפוחית רגיזה</span><span class="t-links__go"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li class="acc__item" data-reveal><a class="t-links__link" href="https://www.physiotherapy.co.il/treatments/pregnancy-and-birth/"><span class="acc__title">הריון ולידה</span><span class="t-links__go"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li class="acc__item" data-reveal><a class="t-links__link" href="https://www.physiotherapy.co.il/treatments/women/"><span class="acc__title">נשים</span><span class="t-links__go"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li class="acc__item" data-reveal><a class="t-links__link" href="https://www.physiotherapy.co.il/treatments/constipation/"><span class="acc__title">עצירות\קשיי התרוקנות</span><span class="t-links__go"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a></li>
+        <li class="acc__item" data-reveal><a class="t-links__link" href="https://www.physiotherapy.co.il/treatments/pelvic-organ-prolapse/" aria-current="page"><span class="acc__title">צניחת איברי אגן</span><span class="t-links__here"><svg class="icon" aria-hidden="true"><use href="#i-capsule"/></svg><span class="visually-hidden">הדף הנוכחי</span></span></a></li>
+      </ul>
+    </div>
+  </section>
+
+{{CONTACT}}

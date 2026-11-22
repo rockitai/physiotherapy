@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מערכת עיצוב – סיון נבות</title>
+  <link rel="stylesheet" href="assets/css/tokens.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/sections.css">
+  <style>
+    .ds { padding-block: var(--space-8); }
+    .ds h1 { font-size: var(--text-3xl); color: var(--plum-700); }
+    .ds h2 { font-size: var(--text-xl); color: var(--plum-700); margin: var(--space-8) 0 var(--space-5); padding-top: var(--space-5); border-top: 1px solid var(--line); }
+    .ds p.note { color: var(--ink-500); font-size: var(--text-sm); max-width: 70ch; }
+    .sw-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+    .sw { border-radius: var(--radius-md); overflow: hidden; background: var(--white); box-shadow: var(--shadow-1); font-size: 13px; }
+    .sw i { display: block; height: 76px; }
+    .sw span { display: block; padding: 8px 12px; line-height: 1.4; }
+    .sw b { display: block; color: var(--ink-900); }
+    .type-row { display: grid; grid-template-columns: 140px 1fr; gap: 16px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .type-row code { font-size: 12px; color: var(--ink-500); direction: ltr; text-align: right; }
+    .icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 12px; }
+    .icons div { display: grid; justify-items: center; gap: 8px; padding: 18px 8px; border-radius: var(--radius-md); background: var(--white); box-shadow: var(--shadow-1); font-size: 12px; color: var(--ink-500); direction: ltr; }
+    .icons .icon { width: 28px; height: 28px; color: var(--plum-700); }
+    .row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .space { display: grid; gap: 8px; }
+    .space div { display: flex; align-items: center; gap: 12px; font-size: 13px; direction: ltr; justify-content: flex-end; }
+    .space i { display: block; height: 14px; background: var(--orchid-300); border-radius: 4px; }
+    .radii { display: flex; gap: 16px; flex-wrap: wrap; }
+    .radii div { width: 110px; height: 80px; background: var(--lavender-200); display: grid; place-items: center; font-size: 12px; direction: ltr; }
+    .shadows { display: flex; gap: 24px; flex-wrap: wrap; }
+    .shadows div { width: 160px; height: 100px; border-radius: var(--radius-md); background: var(--white); display: grid; place-items: center; font-size: 13px; direction: ltr; }
+  </style>
+</head>
+<body>
+<!-- SPRITE:START --><svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true"><symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M10.5 6.5 5 12l5.5 5.5"/></symbol><symbol id="i-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 9.5 12 15l5.5-5.5"/></symbol><symbol id="i-chevron-prev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 6l6 6-6 6"/></symbol><symbol id="i-chevron-next" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 6l-6 6 6 6"/></symbol><symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5h16"/><path d="M9 15.5h11"/></symbol><symbol id="i-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"/><path d="M17.5 6.5l-11 11"/></symbol><symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6.8v10.4l8.2-5.2z"/></symbol><symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5.5 12.5l4 4 9-9"/></symbol><symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5.5"/><path d="M12 16.3v.2"/></symbol><symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3.5h2.8l1.6 4.1-2.1 1.5a11.5 11.5 0 0 0 6.6 6.6l1.5-2.1 4.1 1.6V18a2.5 2.5 0 0 1-2.5 2.5C10.4 20.5 3.5 13.6 3.5 6A2.5 2.5 0 0 1 6 3.5z"/></symbol><symbol id="i-whatsapp" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5a8.5 8.5 0 0 0-7.3 12.8L3.5 20.5l4.3-1.1A8.5 8.5 0 1 0 12 3.5z"/><path d="M9.2 8.6c-.3 2.9 3.2 6.5 6.2 6.2l.6-1.5-1.8-.9-.9.8a4.4 4.4 0 0 1-2.4-2.4l.8-.9-.9-1.8z"/></symbol><symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="2.5"/><path d="M4.5 7.5l7.5 5.5 7.5-5.5"/></symbol><symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20.8s-6.5-5.4-6.5-10.8a6.5 6.5 0 0 1 13 0c0 5.4-6.5 10.8-6.5 10.8z"/><circle cx="12" cy="10" r="2.3"/></symbol><symbol id="i-fax" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 8V3.5h7.5L17 6v2"/><rect x="3.5" y="8" width="17" height="8.5" rx="2"/><path d="M7 13.5h10v7H7z"/><path d="M16.5 10.8h.5"/></symbol><symbol id="i-facebook" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><path d="M15.5 8H14a2 2 0 0 0-2 2v10.5"/><path d="M9.5 13h5"/></symbol><symbol id="i-pain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.3"/><path d="M7.4 8a6.5 6.5 0 0 0 0 8"/><path d="M16.6 8a6.5 6.5 0 0 1 0 8"/><path d="M4.6 5.2a10.5 10.5 0 0 0 0 13.6"/><path d="M19.4 5.2a10.5 10.5 0 0 1 0 13.6"/></symbol><symbol id="i-support" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10c2 5.6 5 8.5 8.5 8.5s6.5-2.9 8.5-8.5"/><circle cx="12" cy="10.5" r="3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l7 2.6v5.4c0 4.4-2.9 7.7-7 9-4.1-1.3-7-4.6-7-9V6.1z"/><path d="M9 12.2l2.1 2.1 4-4"/></symbol><symbol id="i-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5h10.5a3 3 0 0 1 0 6h-5a3 3 0 0 0 0 6H20"/><path d="M17 15.5l3 3-3 3"/></symbol><symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5s6 6.3 6 10.9a6 6 0 0 1-12 0C6 9.8 12 3.5 12 3.5z"/><path d="M9.3 14.6a2.7 2.7 0 0 0 2.7 2.7"/></symbol><symbol id="i-urgency" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5s4.2 4.4 4.2 7.6a4.2 4.2 0 0 1-8.4 0c0-3.2 4.2-7.6 4.2-7.6z"/><path d="M3.5 19.5c1.4-1.1 2.8-1.1 4.2 0s2.9 1.1 4.3 0 2.9-1.1 4.3 0 2.8 1.1 4.2 0"/></symbol><symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5z"/><path d="M12 6.5v13"/></symbol><symbol id="i-capsule" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="8.25" width="17" height="7.5" rx="3.75"/></symbol></svg><!-- SPRITE:END -->
+<main class="container ds">
+  <h1>מערכת עיצוב</h1>
+  <p class="note">עמוד עזר למעצבת ולמפתח. כל הערכים מוגדרים ב-<span dir="ltr">assets/css/tokens.css</span>. הסבר מלא ב-<span dir="ltr">docs/design-system.md</span>.</p>
+
+  <h2>צבעי מותג (מהאתר הקיים)</h2>
+  <div class="sw-grid">
+    <div class="sw"><i style="background:var(--plum-700)"></i><span><b>Plum 700</b>#5A0954 · כותרות, פעולה ראשית</span></div>
+    <div class="sw"><i style="background:var(--plum-logo)"></i><span><b>Plum logo</b>#55004D · הלוגו</span></div>
+    <div class="sw"><i style="background:var(--orchid-500)"></i><span><b>Orchid 500</b>#AF63A8 · מוטו, הדגשות</span></div>
+    <div class="sw"><i style="background:var(--green-500)"></i><span><b>Green 500</b>#7EA403 · ירוק המותג, דקורטיבי</span></div>
+    <div class="sw"><i style="background:var(--grey-200)"></i><span><b>Grey 200</b>#E5E6E7 · קווים</span></div>
+    <div class="sw"><i style="background:var(--white);box-shadow:inset 0 0 0 1px var(--line)"></i><span><b>White</b>#FFFFFF</span></div>
+  </div>
+  <h2>הרחבת הפלטה</h2>
+  <div class="sw-grid">
+    <div class="sw"><i style="background:var(--plum-950)"></i><span><b>Plum 950</b>#2A0427</span></div>
+    <div class="sw"><i style="background:var(--plum-800)"></i><span><b>Plum 800</b>#4B0846 · hover</span></div>
+    <div class="sw"><i style="background:var(--orchid-300)"></i><span><b>Orchid 300</b>#DBB6D6</span></div>
+    <div class="sw"><i style="background:var(--lavender-200)"></i><span><b>Lavender 200</b>#ECDFEA</span></div>
+    <div class="sw"><i style="background:var(--lavender-50)"></i><span><b>Lavender 50</b>#FBF7FA · רקע אזור</span></div>
+    <div class="sw"><i style="background:var(--green-700)"></i><span><b>Green 700</b>#587400 · ירוק עם טקסט</span></div>
+    <div class="sw"><i style="background:var(--green-100)"></i><span><b>Green 100</b>#EEF3DC</span></div>
+    <div class="sw"><i style="background:var(--green-50)"></i><span><b>Green 50</b>#F6F8EE · רקע צור קשר</span></div>
+    <div class="sw"><i style="background:var(--ivory)"></i><span><b>Ivory</b>#FBF9F7 · רקע עמוד</span></div>
+    <div class="sw"><i style="background:var(--ink-900)"></i><span><b>Ink 900</b>#251F28 · כותרות</span></div>
+    <div class="sw"><i style="background:var(--ink-700)"></i><span><b>Ink 700</b>#3F3843 · גוף</span></div>
+    <div class="sw"><i style="background:var(--ink-500)"></i><span><b>Ink 500</b>#6C6470 · משני</span></div>
+  </div>
+
+  <h2>טיפוגרפיה</h2>
+  <p class="note">כותרות: IBM Plex Sans Hebrew (משקלים 300 / 400 / 500), מודרני ונקי. גוף וממשק: Assistant. שני הגופנים מאוחסנים מקומית.</p>
+  <div class="type-row"><code>--text-display</code><span style="font-family:var(--font-display);font-size:var(--text-display);line-height:1">סיון נבות</span></div>
+  <div class="type-row"><code>--text-3xl</code><span style="font-family:var(--font-display);font-size:var(--text-3xl);color:var(--plum-700);line-height:1.1">טיפולים נוספים</span></div>
+  <div class="type-row"><code>--text-2xl</code><span style="font-family:var(--font-display);font-size:var(--text-2xl);line-height:1.3">אשמח לענות על שאלתך</span></div>
+  <div class="type-row"><code>--text-xl</code><span style="font-family:var(--font-display);font-size:var(--text-xl)">צניחת איברי אגן</span></div>
+  <div class="type-row"><code>--text-base</code><span>מאז שנת 2000 אני מטפלת בנשים ובגברים, מגיל הפריון ועד אחרי גיל המעבר.</span></div>
+  <div class="type-row"><code>--text-sm</code><span style="font-size:var(--text-sm)">כפתורים, תוויות, ניווט</span></div>
+  <div class="type-row"><code>--text-xs</code><span style="font-size:var(--text-xs);color:var(--ink-500)">הערות, זכויות יוצרים</span></div>
+
+  <h2>כפתורים וקישורים</h2>
+  <div class="row">
+    <a class="btn btn--primary btn--lg" href="#">צור קשר <svg class="icon icon--move" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    <a class="btn btn--ghost btn--lg" href="#"><svg class="icon" aria-hidden="true"><use href="#i-phone"/></svg><span dir="ltr">052-6623666</span></a>
+    <a class="btn btn--primary" href="#">ברירת מחדל</a>
+    <a class="btn btn--primary btn--sm" href="#">קטן</a>
+    <button class="btn btn--primary is-loading" type="button"><span>שלח</span><span class="btn__spinner"></span></button>
+    <button class="btn btn--primary" type="button" disabled>מושבת</button>
+  </div>
+  <div class="row" style="margin-top:20px">
+    <a class="arrow-link" href="#"><span>המשך קריאה</span><span class="arrow-link__icon"><svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></a>
+    <a class="text-link" href="#">קישור בתוך טקסט</a>
+    <a class="chip" href="#">צ'יפ</a>
+  </div>
+
+  <h2>אייקונים</h2>
+  <p class="note">רשת 24×24, קו 1.5, קצוות ופינות מעוגלים, ללא מילוי, צבע לפי currentColor. מקור אחד: <span dir="ltr">tools/icons.py</span> (מייצר קבצי SVG בודדים ואת ה-sprite). בהקשרי תוכן האייקון יושב בתוך "קפסולה" – מוטיב התבליט מהאתר הישן.</p>
+  <div class="icons" id="icons"></div>
+
+  <h2>איורים</h2>
+  <p class="note">שפה אחת של קו דק, אחיד ומעודן, עם זרעי סביון כמוטיב חוזר. דמויות קו לאריחי הקטגוריות (מיועדות גם לעמודי גברים / נשים / הריון ולידה / מילון).</p>
+  <div class="row" style="gap:24px;color:var(--plum-700)">
+    <img src="assets/illustrations/line-men.svg" alt="" style="height:160px">
+    <img src="assets/illustrations/line-women.svg" alt="" style="height:160px">
+    <img src="assets/illustrations/line-pregnancy.svg" alt="" style="height:160px">
+    <img src="assets/illustrations/line-glossary.svg" alt="" style="height:160px">
+  </div>
+
+  <h2>ריווח (בסיס 4px)</h2>
+  <div class="space">
+    <div>--space-1 · 4<i style="width:4px"></i></div><div>--space-2 · 8<i style="width:8px"></i></div>
+    <div>--space-3 · 12<i style="width:12px"></i></div><div>--space-4 · 16<i style="width:16px"></i></div>
+    <div>--space-5 · 24<i style="width:24px"></i></div><div>--space-6 · 32<i style="width:32px"></i></div>
+    <div>--space-7 · 48<i style="width:48px"></i></div><div>--space-8 · 64<i style="width:64px"></i></div>
+    <div>--space-9 · 96<i style="width:96px"></i></div><div>--space-10 · 128<i style="width:128px"></i></div>
+  </div>
+
+  <h2>פינות וצללים</h2>
+  <div class="radii">
+    <div style="border-radius:var(--radius-sm)">sm · 10</div><div style="border-radius:var(--radius-md)">md · 18</div>
+    <div style="border-radius:var(--radius-lg)">lg · 28</div><div style="border-radius:var(--radius-xl)">xl · 44</div>
+    <div style="border-radius:var(--radius-pill)">pill</div>
+  </div>
+  <div class="shadows" style="margin-top:24px">
+    <div style="box-shadow:var(--shadow-1)">shadow-1</div><div style="box-shadow:var(--shadow-2)">shadow-2</div><div style="box-shadow:var(--shadow-3)">shadow-3</div>
+  </div>
+</main>
+<script>
+  document.querySelectorAll('#icons').forEach(function (box) {
+    document.querySelectorAll('symbol[id^="i-"]').forEach(function (s) {
+      var n = s.id.slice(2);
+      box.insertAdjacentHTML('beforeend', '<div><svg class="icon"><use href="#' + s.id + '"/></svg>' + n + '</div>');
+    });
+  });
+</script>
+</body>
+</html>

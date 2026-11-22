@@ -1,0 +1,32 @@
+/* ==========================================================================
+   Layout: container, section rhythm, shared section headings
+   Breakpoints (mobile-first): 600 (sm) · 960 (md) · 1200 (lg) · 1440 (xl)
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+}
+.section--tint { background: var(--lavender-50); }
+
+.section-title {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  color: var(--plum-700);
+  font-weight: 400;
+}
+.section-title--light { color: var(--white); }
+
+/* 12-column grid helper for future pages */
+.grid-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-6) var(--gutter);
+}

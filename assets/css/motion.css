@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Motion
+   - Reveal: [data-reveal] fades + rises 24px when it enters the viewport.
+     Siblings stagger by var(--stagger) via the --i index set in reveal.js.
+   - Hero: [data-hero-item] + [data-hero-figure] play once on load.
+   - Everything is gated behind .js so content is visible without JS,
+     and durations collapse to 0 under prefers-reduced-motion (tokens.css).
+   ========================================================================== */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(var(--reveal-distance));
+  transition:
+    opacity var(--dur-reveal) var(--ease-out),
+    transform var(--dur-reveal) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
+}
+.js [data-reveal].is-revealed { opacity: 1; transform: none; }
+
+/* Hero entrance (unhurried): text rises in line by line, then Sivan rises out of the ring */
+.js [data-hero-item] {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: hero-rise var(--dur-enter) var(--ease-out) forwards;
+}
+.js .hero__name   { animation-delay: 200ms; }
+.js .hero__field  { animation-delay: 480ms; }
+.js .hero__motto  { animation-delay: 800ms; }
+.js .hero__actions{ animation-delay: 1400ms; }
+.js .hero__where  { animation-delay: 1600ms; }
+.js .hero__motto span { opacity: 0; animation: hero-rise var(--dur-enter) var(--ease-out) forwards; }
+.js .hero__motto span:nth-child(1) { animation-delay: 900ms; }
+.js .hero__motto span:nth-child(2) { animation-delay: 1080ms; }
+.js .hero__motto span:nth-child(3) { animation-delay: 1260ms; }
+
+/* 1) the arch opens upward like a curtain and its outline draws itself, 2) the portrait rises into place,
+   3) dandelion stems grow up from the bottom of the frame, heads open */
+.js [data-hero-figure] .hero__frame { animation: arch-open 1.6s var(--ease-out) 0.3s both; }
+.js [data-hero-figure] .hero__arch-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.6s var(--ease-in-out) 0.8s forwards; }
+.js [data-hero-figure] .hero__portrait { animation: rise-out 2.2s var(--ease-out) 0.8s both; }
+/* round 17: the dandelions grow in together with the text (no wait) */
+.js [data-hero-figure] .dandelion__stem { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 2.2s var(--ease-in-out) 0.15s forwards; }
+.js [data-hero-figure] .dandelion__head { animation: head-open 1.4s var(--ease-out) 1.1s both, breathe 5s var(--ease-in-out) 2.5s infinite alternate; }
+.js [data-hero-figure] .dandelion__seeds { animation: fade-in 1.4s var(--ease-out) 1.6s both; }
+
+@keyframes hero-rise { to { opacity: 1; transform: none; } }
+@keyframes arch-open { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes rise-out { from { opacity: 0; transform: translateY(180px); } 40% { opacity: 1; } to { opacity: 1; transform: none; } }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes head-open { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: none; } }
+
+/* Dandelions: slow breathing sway; seeds drift off in the wind */
+.dandelion--arch .dandelion__sway { animation: sway-arch 7s var(--ease-in-out) infinite alternate; }
+
+.dandelion--wind .dandelion__sway { animation: sway-wind 4.5s var(--ease-in-out) infinite alternate; }
+.dandelion--twin .dandelion__sway { animation: sway-wind 5.4s var(--ease-in-out) -2s infinite alternate; }
+.seed {
+  opacity: 0;
+  animation: seed-fly var(--d) cubic-bezier(0.35, 0.1, 0.4, 1) var(--delay) infinite;
+}
+.seed__wobble { animation: seed-wobble 1.8s var(--ease-in-out) infinite alternate; }
+
+@keyframes sway-arch { from { transform: rotate(-1.6deg); } to { transform: rotate(1.4deg); } }
+@keyframes sway-wind { from { transform: rotate(-2.5deg); } to { transform: rotate(2deg); } }
+@keyframes breathe { from { transform: scale(0.97); } to { transform: scale(1.04); } }
+@keyframes seed-fly {
+  0%   { opacity: 0; transform: translate(var(--x), var(--y)) rotate(0deg); }
+  8%   { opacity: 0.95; }
+  70%  { opacity: 0.7; }
+  100% { opacity: 0; transform: translate(calc(var(--x) + var(--dx)), calc(var(--y) + var(--dy))) rotate(var(--r)); }
+}
+.side-seed { animation: side-seed var(--d) cubic-bezier(0.3, 0.1, 0.4, 1) var(--delay) infinite; }
+.side-seed svg { animation: seed-wobble 1.8s var(--ease-in-out) infinite alternate; transform-origin: 50% 40%; }
+@keyframes side-seed {
+  0%   { opacity: 0; transform: translate(var(--sx), calc(var(--sy) * -1)) rotate(0deg); }
+  10%  { opacity: 0.9; }
+  65%  { opacity: 0.6; }
+  100% { opacity: 0; transform: translate(calc(var(--sx) + var(--dx)), calc(var(--dy) - var(--sy))) rotate(var(--r)); }
+}
+@keyframes seed-wobble { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+
+/* round 15: the treatments dandelion grows like the hero's left one, once it scrolls into view */
+.dandelion--side .dandelion__sway { animation: sway-arch 7s var(--ease-in-out) infinite alternate; }
+.js .treatments__dandelion .dandelion__stem { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.js .treatments__dandelion .dandelion__head { opacity: 0; }
+.js .treatments__dandelion.is-revealed .dandelion__stem { animation: draw 3s var(--ease-in-out) 0.2s forwards; }
+.js .treatments__dandelion.is-revealed .dandelion__head { animation: head-open 1.8s var(--ease-out) 2.2s both, breathe 5s var(--ease-in-out) 4s infinite alternate; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal], .js [data-hero-item], .js .hero__motto span,
+  .js [data-hero-figure] *, .dandelion, .dandelion * {
+    opacity: 1 !important;
+    animation: none !important;
+    stroke-dashoffset: 0 !important;
+  }
+  .js [data-reveal], .js [data-hero-item] { transform: none !important; }
+  .seed, .side-seed { display: none; }
+  .video__play-ring::after { animation: none; }
+  .hl, .intro__quote::before { transition: none !important; }
+}
+
+/* Hero: soft blur-in for the text, then the capsule with Sivan */
+.js .hero--split [data-hero-item] { filter: blur(10px); transform: translateY(26px); animation-name: hero-blur-in; }
+/* round 12: capsule, caption and Sivan enter together as one soft blur-in */
+.js [data-hero-photo] { opacity: 0; filter: blur(10px); transform: translateY(26px); animation: hero-blur-in 1.8s var(--ease-out) 0.7s forwards; }
+@keyframes hero-blur-in { to { opacity: 1; filter: blur(0); transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .js .hero--split [data-hero-item], .js [data-hero-photo] { opacity: 1 !important; filter: none !important; transform: none !important; animation: none !important; }
+  .hero__dandelions { transform: none; transition: none; }
+}
+
+/* round 26 (Aviv): a quicker entrance, above all the buttons: they are in place and usable after ~1s instead of ~3s */
+.js .hero--split [data-hero-item] { animation-duration: 1s; }
+.js .hero__name   { animation-delay: 80ms; }
+.js .hero__field  { animation-delay: 220ms; }
+.js .hero__motto  { animation-delay: 380ms; }
+.js .hero__motto span { animation-duration: 0.9s; }
+.js .hero__motto span:nth-child(1) { animation-delay: 420ms; }
+.js .hero__motto span:nth-child(2) { animation-delay: 520ms; }
+.js .hero__motto span:nth-child(3) { animation-delay: 620ms; }
+.js .hero--split .hero__actions { animation-delay: 300ms; animation-duration: 0.7s; }
+.js .hero__where  { animation-delay: 650ms; }
+.js [data-hero-photo] { animation-duration: 1.3s; animation-delay: 0.45s; }
