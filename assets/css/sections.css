@@ -900,3 +900,10 @@ html:not(.js) .acc__text, .acc__item.is-open .acc__text { opacity: 1; transform:
 }
 /* round 25 (Aviv): Sivan 15% larger; the same air above her head, the extra height runs out below the capsule's bottom edge (clipped) */
 .hero__photo-img { height: calc((var(--cap-h) - 18px) * 1.15); bottom: calc((var(--cap-h) - 18px) * -0.15); }
+/* round 27 (Aviv): Sivan a little larger again, still a small air above her head; desktop homepage: less space above and below the four category tiles */
+.hero__photo-img { height: calc((var(--cap-h) - 18px) * 1.25); bottom: calc((var(--cap-h) - 18px) * -0.25); }
+@media (min-width: 960px) {
+  .intro { padding-bottom: calc(var(--section-y) - 60px); }
+  .paths { padding-bottom: 0.5rem; }
+  .treatments:not(.t-related) { padding-top: calc(var(--section-y) - 64px); }
+}

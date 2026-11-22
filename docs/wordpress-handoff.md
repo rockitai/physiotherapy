@@ -17,7 +17,7 @@ Nothing has been deployed and the live site is untouched.
 | Mobile menu / footer columns | same menu, or the existing side menu |
 | Hero, intro, tiles, treatment accordion | ACF fields or the existing page content (text must stay identical) |
 | Testimonials | existing testimonials source |
-| Contact form | **Gravity Forms #2** (existing). Keep its fields, consent, honeypot and CleanTalk. Style its markup with the `.field`, `.field__input`, `.checkbox`, `.btn` classes, or map GF classes to them. Remove `assets/js/form.js` once GF handles validation |
+| Contact form | **Gravity Forms #2** (existing). Keep its fields, consent, honeypot and CleanTalk. Style its markup with the `.field`, `.field__input`, `.checkbox`, `.btn` classes, or map GF classes to them. Remove `assets/js/form.js` once GF handles validation. The concept sends through `assets/php/contact.php` (to sivan@physiotherapy.co.il, subject `פנייה מהאתר | <name>`, Reply-To the sender); set the same in GF → Notifications: Send To `sivan@physiotherapy.co.il`, Subject `פנייה מהאתר | {Name:1}`, Reply To `{Email:3}`, then delete the PHP file |
 | Facebook | concept shows a link card; the old Page Plugin iframe can be restored inside `.fb-card` if wanted |
 | Cookie notice | existing Elementor popup (replace the yellow marker with the real text); `ui.js` cookie part can be dropped |
 | Accessibility | keep the existing **enable.co.il** widget script |

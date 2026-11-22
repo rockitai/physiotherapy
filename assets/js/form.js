@@ -1,11 +1,13 @@
-/* Contact form – FRONTEND ONLY.
-   Validates the same required fields as the live Gravity Form (#2) and shows
-   loading / error / success states. It does NOT send anything: in WordPress the
-   markup is replaced by Gravity Forms, and these classes style its output.
-   See docs/wordpress-handoff.md. */
+/* Contact form: validates the same required fields as the live Gravity Form (#2), then sends the enquiry to
+   assets/php/contact.php, which e-mails it to sivan@physiotherapy.co.il ("פנייה מהאתר | <name>").
+   Loading / error / success states. In WordPress Gravity Forms takes over (see docs/wordpress-handoff.md). */
 (function () {
+  // the endpoint sits next to this script (assets/js -> assets/php), whatever the page's depth or language
+  var me = document.currentScript && document.currentScript.src;
+  var endpoint = me ? me.replace(/js\/form\.js(\?.*)?$/, 'php/contact.php') : 'assets/php/contact.php';
   var form = document.querySelector('[data-form]');
   if (!form) return;
+  form.action = endpoint;
   var status = form.querySelector('.form__status');
   var submit = form.querySelector('.form__submit');
 
@@ -56,14 +58,32 @@
 
     submit.classList.add('is-loading');
     submit.setAttribute('aria-disabled', 'true');
+    submit.disabled = true;
     status.className = 'form__status';
     status.textContent = '';
-    setTimeout(function () {
+
+    var data = new FormData(form);
+    data.append('page', location.href);
+    data.append('lang', en ? 'en' : 'he');
+    function done(ok) {
       submit.classList.remove('is-loading');
       submit.removeAttribute('aria-disabled');
-      status.classList.add('is-success');
-      // Concept-only notice (not site copy): the form is not connected yet.
-      status.textContent = en ? 'Concept version: the form is not connected yet.' : 'גרסת קונספט: הטופס עדיין לא מחובר לשליחה.';
-    }, 900);
+      submit.disabled = false;
+      if (ok) {
+        status.classList.add('is-success');
+        status.textContent = en ? 'Thank you, your message has been sent. Sivan will get back to you soon.'
+                                : 'תודה, ההודעה נשלחה. סיון תחזור אליך בהקדם.';
+        form.reset();
+        form.querySelectorAll('.field').forEach(function (f) { f.classList.remove('is-valid', 'is-invalid'); });
+      } else {
+        status.classList.add('is-error');
+        status.innerHTML = en ? 'The message was not sent. Please try again, or call <a href="tel:052-6623666" dir="ltr">052-6623666</a>.'
+                              : 'ההודעה לא נשלחה. אפשר לנסות שוב, או להתקשר ל־<a href="tel:052-6623666" dir="ltr">052-6623666</a>.';
+      }
+    }
+    fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } })
+      .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .then(function (j) { done(!!(j && j.ok)); })
+      .catch(function () { done(false); });
   });
 })();

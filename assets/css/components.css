@@ -420,6 +420,9 @@
 .form__footer { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4); }
 .form__status { font-size: var(--text-sm); color: var(--ink-500); }
 .form__status.is-success { color: var(--color-success); font-weight: 600; }
+.form__status.is-error { color: var(--color-error, #b3261e); font-weight: 600; }
+.form__status a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.form__hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
 /* ==========================================================================
    Footer – compact: all links kept, laid out in tight columns
@@ -563,6 +566,7 @@
   animation: cookie-in var(--dur-3) var(--ease-out) both;
 }
 .cookie .btn { justify-self: start; }
+.cookie__text { margin: 0; color: var(--ink-700); }
 .cookie { inset-inline-start: 16px; inset-inline-end: auto; }
 @media (max-width: 959px) { .cookie { bottom: calc(92px + env(safe-area-inset-bottom)); } }
 @media (max-width: 599px) { .cookie { inset-inline: 12px; max-width: none; } }
