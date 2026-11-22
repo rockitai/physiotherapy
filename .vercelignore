@@ -1,0 +1,4 @@
+# Build tools, notes and design previews are not part of the public site
+tools/
+docs/
+previews/
