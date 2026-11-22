@@ -3270,7 +3270,7 @@ q.a-quote { quotes: none; font-family: var(--font-display); color: var(--plum-70
       <!-- Form: same fields/labels as Gravity Forms #2 on the live site. Frontend only. -->
       <div class="form-card" data-reveal>
         <h2 class="form-card__title" id="form-title">אשמח לענות על שאלתך</h2>
-        <form class="form" action="assets/php/contact.php" method="post" novalidate data-form aria-labelledby="form-title">
+        <form class="form" action="/api/contact" method="post" novalidate data-form aria-labelledby="form-title">
           <div class="form__row form__row--2 form__row--3">
             <div class="field">
               <label class="field__label" for="f-name">שם <span class="field__req" aria-hidden="true">*</span></label>
@@ -3529,12 +3529,10 @@ q.a-quote { quotes: none; font-family: var(--font-display); color: var(--plum-70
 </script>
 <script>
 /* Contact form: validates the same required fields as the live Gravity Form (#2), then sends the enquiry to
-   assets/php/contact.php, which e-mails it to sivan@physiotherapy.co.il ("פנייה מהאתר | <name>").
+   /api/contact (Vercel function api/contact.js), which e-mails it to sivan@physiotherapy.co.il ("פנייה מהאתר | <name>").
    Loading / error / success states. In WordPress Gravity Forms takes over (see docs/wordpress-handoff.md). */
 (function () {
-  // the endpoint sits next to this script (assets/js -> assets/php), whatever the page's depth or language
-  var me = document.currentScript && document.currentScript.src;
-  var endpoint = me ? me.replace(/js\/form\.js(\?.*)?$/, 'php/contact.php') : 'assets/php/contact.php';
+  var endpoint = '/api/contact';   // Vercel function api/contact.js (assets/php/contact.php is the same for PHP hosts)
   var form = document.querySelector('[data-form]');
   if (!form) return;
   form.action = endpoint;

@@ -1,10 +1,8 @@
 /* Contact form: validates the same required fields as the live Gravity Form (#2), then sends the enquiry to
-   assets/php/contact.php, which e-mails it to sivan@physiotherapy.co.il ("פנייה מהאתר | <name>").
+   /api/contact (Vercel function api/contact.js), which e-mails it to sivan@physiotherapy.co.il ("פנייה מהאתר | <name>").
    Loading / error / success states. In WordPress Gravity Forms takes over (see docs/wordpress-handoff.md). */
 (function () {
-  // the endpoint sits next to this script (assets/js -> assets/php), whatever the page's depth or language
-  var me = document.currentScript && document.currentScript.src;
-  var endpoint = me ? me.replace(/js\/form\.js(\?.*)?$/, 'php/contact.php') : 'assets/php/contact.php';
+  var endpoint = '/api/contact';   // Vercel function api/contact.js (assets/php/contact.php is the same for PHP hosts)
   var form = document.querySelector('[data-form]');
   if (!form) return;
   form.action = endpoint;

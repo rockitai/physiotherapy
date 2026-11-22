@@ -36,3 +36,11 @@ docs/
   wordpress-handoff.md     what the WP developer needs to wire up
 ```
 No build step and no dependencies. Scripts are plain deferred files (no ES modules) so the page also runs from `file://`.
+
+## Hosting on Vercel
+
+The site is static and deploys as is from `main` (no build step). The contact form posts to `/api/contact`
+(`api/contact.js`, a Vercel Edge Function that e-mails sivan@physiotherapy.co.il with the subject `פנייה מהאתר | <name>`).
+It sends through [Resend](https://resend.com): set `RESEND_API_KEY` in Vercel → Settings → Environment Variables and
+verify the domain physiotherapy.co.il in Resend (optional: `CONTACT_FROM`, `CONTACT_TO`).
+`assets/php/contact.php` does the same on a PHP host and is not used on Vercel.
