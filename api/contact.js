@@ -9,15 +9,16 @@
  * Sends through Resend (https://resend.com), no npm packages needed. Set in Vercel → Project → Settings →
  * Environment Variables:
  *   RESEND_API_KEY  (required)  API key from resend.com
- *   CONTACT_FROM    (optional)  sender, default "אתר סיון נבות <website@physiotherapy.co.il>";
- *                               the domain physiotherapy.co.il must be verified in Resend for this sender.
+ *   CONTACT_FROM    (optional)  sender, default "אתר סיון נבות <website@mail.physiotherapy.co.il>";
+ *                               the subdomain mail.physiotherapy.co.il must be verified in Resend (a subdomain keeps
+ *                               Sivan's own mailbox DNS on physiotherapy.co.il untouched). Use a sending-only key.
  *   CONTACT_TO      (optional)  recipient, default sivan@physiotherapy.co.il
  * Used by assets/js/form.js (fetch, JSON answer) on every page, Hebrew and English.
  */
 export const config = { runtime: 'edge' };
 
 const TO = 'sivan@physiotherapy.co.il';
-const FROM = 'אתר סיון נבות <website@physiotherapy.co.il>';
+const FROM = 'אתר סיון נבות <website@mail.physiotherapy.co.il>';
 const SUBJECT = 'פנייה מהאתר | ';
 
 function answer(status, body) {
