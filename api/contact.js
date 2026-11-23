@@ -2,7 +2,7 @@
  * Contact form endpoint for Vercel (replaces assets/php/contact.php, which Vercel cannot run).
  * Same behaviour as the PHP version:
  *
- *   To:       sivan@physiotherapy.co.il
+ *   To:       sivan@physiotherapy.co.il and sivan.navot@gmail.com
  *   Subject:  פנייה מהאתר | <sender's name>
  *   Reply-To: the sender's e-mail
  *
@@ -12,12 +12,12 @@
  *   CONTACT_FROM    (optional)  sender, default "אתר סיון נבות <website@mail.physiotherapy.co.il>";
  *                               the subdomain mail.physiotherapy.co.il must be verified in Resend (a subdomain keeps
  *                               Sivan's own mailbox DNS on physiotherapy.co.il untouched). Use a sending-only key.
- *   CONTACT_TO      (optional)  recipient, default sivan@physiotherapy.co.il
+ *   CONTACT_TO      (optional)  recipients, comma separated; default sivan@physiotherapy.co.il, sivan.navot@gmail.com
  * Used by assets/js/form.js (fetch, JSON answer) on every page, Hebrew and English.
  */
 export const config = { runtime: 'edge' };
 
-const TO = 'sivan@physiotherapy.co.il';
+const TO = ['sivan@physiotherapy.co.il', 'sivan.navot@gmail.com'];
 const FROM = 'אתר סיון נבות <website@mail.physiotherapy.co.il>';
 const SUBJECT = 'פנייה מהאתר | ';
 
@@ -94,7 +94,7 @@ export default async function handler(request) {
       headers: { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         from: process.env.CONTACT_FROM || FROM,
-        to: [process.env.CONTACT_TO || TO],
+        to: process.env.CONTACT_TO ? process.env.CONTACT_TO.split(',').map((a) => a.trim()).filter(Boolean) : TO,
         reply_to: email,
         subject: SUBJECT + name,
         text,

@@ -2,18 +2,18 @@
 /**
  * Contact form endpoint (Aviv, 2026-11-22): every enquiry goes by e-mail to Sivan.
  *
- *   To:       sivan@physiotherapy.co.il
+ *   To:       sivan@physiotherapy.co.il, sivan.navot@gmail.com
  *   Subject:  פנייה מהאתר | <sender's name>
  *   Reply-To: the sender's e-mail, so "Reply" in the mailbox answers them directly
  *
  * Used by assets/js/form.js (fetch, JSON answer) on every page, Hebrew and English.
  * Works on any PHP host that can send mail (the current physiotherapy.co.il hosting can).
  * In WordPress the same result comes from Gravity Forms #2 → Notifications:
- *   Send To: sivan@physiotherapy.co.il · Subject: פנייה מהאתר | {Name:1} · Reply To: {Email:3}
+ *   Send To: sivan@physiotherapy.co.il, sivan.navot@gmail.com · Subject: פנייה מהאתר | {Name:1} · Reply To: {Email:3}
  * and this file can be deleted. See docs/wordpress-handoff.md.
  */
 
-const TO        = 'sivan@physiotherapy.co.il';
+const TO        = 'sivan@physiotherapy.co.il, sivan.navot@gmail.com';
 const FROM      = 'website@physiotherapy.co.il';   // a sender on the site's own domain, so the mail is not marked as spam
 const SUBJECT   = 'פנייה מהאתר | ';
 

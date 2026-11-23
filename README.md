@@ -40,7 +40,7 @@ No build step and no dependencies. Scripts are plain deferred files (no ES modul
 ## Hosting on Vercel
 
 The site is static and deploys as is from `main` (no build step). The contact form posts to `/api/contact`
-(`api/contact.js`, a Vercel Edge Function that e-mails sivan@physiotherapy.co.il with the subject `פנייה מהאתר | <name>`).
+(`api/contact.js`, a Vercel Edge Function that e-mails sivan@physiotherapy.co.il and sivan.navot@gmail.com with the subject `פנייה מהאתר | <name>`).
 It sends through [Resend](https://resend.com): set `RESEND_API_KEY` in Vercel → Settings → Environment Variables and
 verify the subdomain mail.physiotherapy.co.il in Resend (sender website@mail.physiotherapy.co.il; use a sending-only key) (optional: `CONTACT_FROM`, `CONTACT_TO`).
 `assets/php/contact.php` does the same on a PHP host and is not used on Vercel.
